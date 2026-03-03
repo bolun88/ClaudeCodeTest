@@ -17,6 +17,23 @@ start tictactoe.html
 
 There is no build step, no package manager, no bundler, and no test runner.
 
+## Established Design Language
+
+**Color palette** (use these in every new game for visual consistency):
+
+| Role | Hex | Usage |
+|---|---|---|
+| Background | `#0a0a0f` | Canvas fill |
+| Player | `#00ff88` | Player character |
+| Bullet | `#ffff00` | Player projectiles |
+| Enemy A | `#ff2266` | Grunt (magenta-red) |
+| Enemy B | `#ff6600` | Runner (orange) |
+| Enemy C | `#aa00ff` | Tank (purple) |
+| HUD text | `#00ffcc` | All UI readouts |
+| Title / danger | `#ff2266` | Menu title, game over |
+
+Sprites are drawn with canvas primitives (`fillRect`, `arc`) only — no images or SVG.
+
 ## Architecture Pattern
 
 Every game follows the same constraints:
@@ -48,8 +65,18 @@ The file is organized into labeled sections (marked with `// ─── Section �
 
 ## Git Workflow
 
-This repo uses Git with GitHub (`origin` = `https://github.com/bolun88/ClaudeCodeTest`).
+This repo uses Git with GitHub (`origin` = `https://github.com/bolun88/ClaudeCodeTest`). `gh auth setup-git` has been run so `git push` works without any credential dialogs.
 
-- Commit only changed game files by name — never `git add .` blindly
-- Push every commit: `git push`
-- Write descriptive commit messages explaining *what changed and why*
+**Commit and push after every meaningful unit of work** — a completed feature, a bug fix, a refactor. Never leave the session with uncommitted changes. The goal is that GitHub always reflects the current working state so nothing is ever lost.
+
+- Stage files by name: `git add shooter.html` — never `git add .` blindly
+- Push immediately after every commit: `git push`
+- Commit messages: short imperative subject line, then a blank line and bullet details if needed (explain *what* changed and *why*, not just *that* it changed)
+
+Example commit message format:
+```
+Add shield power-up to shooter
+
+- Player gains 2s of invincibility on pickup
+- Shield flashes cyan; pickup spawns every 3 waves
+```
